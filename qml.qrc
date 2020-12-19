@@ -1,9 +1,20 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>HomeForm.ui.qml</file>
-        <file>Page1Form.ui.qml</file>
-        <file>Page2Form.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>IMG/Sprtage_logo.png</file>
+        <file>IMG/KIA_logo.png</file>
+        <file>IMG/KIA_CAR.png</file>
+        <file>PAGES/HomePage.qml</file>
+        <file>PAGES/RadioPage.qml</file>
+        <file>PAGES/PlayerPage.qml</file>
+        <file>COMPONENTS/AnalogClock/AnalogClock.qml</file>
+        <file>COMPONENTS/Separators/ManuSeparatorVertical.qml</file>
+        <file>PAGES/BrowserPage.qml</file>
+        <file>PAGES/SettingsPage.qml</file>
+        <file>IMG/settings.png</file>
+        <file>IMG/web-search-engine.png</file>
+        <file>IMG/music-and-multimedia.png</file>
+        <file>IMG/radio.png</file>
     </qresource>
 </RCC>

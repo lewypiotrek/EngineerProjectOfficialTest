@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/media"/>
+    <qresource prefix="/">
+        <file>IMG/KIA_logo.jfif</file>
+        <file>IMG/Sprtage_logo.png</file>
+    </qresource>
+</RCC>
