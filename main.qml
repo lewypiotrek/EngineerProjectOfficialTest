@@ -56,22 +56,21 @@ ApplicationWindow {
         id: drawer
         width: window.width * 0.45
         height: window.height
-        font.pointSize: 20
+        font.pointSize: 27
 
         Column {
             anchors.fill: parent
+            Separators.ManuSeparatorVertical{}
 
             ItemDelegate {
                 Image {
                     id: mediaIcon
                     source: "qrc:/IMG/music-and-multimedia.png"
-                    width: 50
-                    height: 50
-                    anchors.left: parent.left
-                    anchors.top: parent.top
+                    width: 60
+                    height: 60
                 }
                 text: qsTr("Media Player")
-                anchors.left: mediaIcon.right
+                leftPadding: parent.width * 0.2
                 width: parent.width
                 onClicked: {
                     stackView.push("qrc:/PAGES/PlayerPage.qml")
@@ -82,16 +81,14 @@ ApplicationWindow {
             Separators.ManuSeparatorVertical{}
 
             ItemDelegate {
-
                 Image {
                     id: radioIcon
                     source: "qrc:/IMG/radio.png"
-                    width: 50
-                    height: 50
-                    anchors.left: parent.left
+                    width: 60
+                    height: 60
                 }
-
                 text: qsTr("Radio")
+                leftPadding: parent.width * 0.2
                 width: parent.width
                 onClicked: {
                     stackView.push("qrc:/PAGES/RadioPage.qml")
@@ -102,7 +99,14 @@ ApplicationWindow {
            Separators.ManuSeparatorVertical{}
 
            ItemDelegate {
+               Image {
+                   id: browserIcon
+                   source: "qrc:/IMG/web-search-engine.png"
+                   width: 60
+                   height: 60
+               }
                text: qsTr("Web browser")
+               leftPadding: parent.width * 0.2
                width: parent.width
                onClicked: {
                    stackView.push("qrc:/PAGES/BrowserPage.qml")
@@ -114,7 +118,14 @@ ApplicationWindow {
 
            ItemDelegate {
                text: qsTr("Settings")
-               width: parent.width
+               Image {
+                   id: settingIcon
+                   source: "qrc:/IMG/settings.png"
+                   width: 60
+                   height: 60
+               }
+               leftPadding: parent.width * 0.2
+               width: parent.width               
                onClicked: {
                    stackView.push("qrc:/PAGES/SettingsPage.qml")
                    drawer.close()

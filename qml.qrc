@@ -16,5 +16,10 @@
         <file>IMG/web-search-engine.png</file>
         <file>IMG/music-and-multimedia.png</file>
         <file>IMG/radio.png</file>
+        <file>COMPONENTS/AnalogClock/arrow.png</file>
+        <file>COMPONENTS/AnalogClock/clock-night.png</file>
+        <file>COMPONENTS/AnalogClock/hour.png</file>
+        <file>COMPONENTS/AnalogClock/minute.png</file>
+        <file>COMPONENTS/AnalogClock/second.png</file>
     </qresource>
 </RCC>
