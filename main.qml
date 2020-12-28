@@ -11,7 +11,6 @@ ApplicationWindow {
     visible: true
     title: qsTr("Car Dashboard")
 
-
     header: ToolBar {
         contentHeight: toolButton.implicitHeight
 

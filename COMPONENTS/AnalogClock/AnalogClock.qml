@@ -25,11 +25,16 @@ Item {
 
     Item {
         anchors.centerIn: parent
-        width: 200; height: 240
-        Image { source: "qrc:/COMPONENTS/AnalogClock/clock-night.png";}
+        width: parent.width; height: parent.height
+        Image {
+            source: "qrc:/COMPONENTS/AnalogClock/Clock_background.png"
+            anchors.centerIn: parent.Center
+            width:parent.width
+            height: parent.height
+        }
 
         Image {
-            x: 92.5; y: 27
+            x: 122; y: 54
             source: "hour.png"
             transform: Rotation {
                 id: hourRotation
@@ -42,7 +47,7 @@ Item {
         }
 
         Image {
-            x: 93.5; y: 17
+            x: 124; y: 45
             source: "minute.png"
             transform: Rotation {
                 id: minuteRotation
@@ -55,7 +60,7 @@ Item {
         }
 
         Image {
-            x: 97.5; y: 20
+            x: 129; y: 48
             source: "second.png"
             transform: Rotation {
                 id: secondRotation

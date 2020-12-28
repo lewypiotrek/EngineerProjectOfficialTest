@@ -17,9 +17,13 @@
         <file>IMG/music-and-multimedia.png</file>
         <file>IMG/radio.png</file>
         <file>COMPONENTS/AnalogClock/arrow.png</file>
-        <file>COMPONENTS/AnalogClock/clock-night.png</file>
         <file>COMPONENTS/AnalogClock/hour.png</file>
         <file>COMPONENTS/AnalogClock/minute.png</file>
         <file>COMPONENTS/AnalogClock/second.png</file>
+        <file>COMPONENTS/AnalogClock/Clock_background.png</file>
+        <file>IMG/background.png</file>
+        <file>IMG/backgroundWave.jpg</file>
+        <file>COMPONENTS/MiniMediaPlayer/MiniMediaPlayer.qml</file>
+        <file>COMPONENTS/MiniMediaPlayer/play.png</file>
     </qresource>
 </RCC>

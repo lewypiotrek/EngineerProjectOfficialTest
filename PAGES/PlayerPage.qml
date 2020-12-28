@@ -7,12 +7,10 @@ Page {
     height: parent.height
     x: parent.x
     y: parent.y
-
-    Rectangle{
-        width: 119
-        height: 78
-        x: 99
-        y: 170
+    background:BorderImage {
+        source: "qrc:/IMG/backgroundWave.jpg"
+        opacity: 0.3
     }
+
 
 }

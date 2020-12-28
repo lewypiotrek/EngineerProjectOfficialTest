@@ -7,6 +7,10 @@ Page {
     anchors.fill: parent
     width: parent.width
     height: parent.height
+    background:BorderImage {
+        source: "qrc:/IMG/backgroundWave.jpg"
+        opacity: 0.3
+    }
 
 
     Rectangle{

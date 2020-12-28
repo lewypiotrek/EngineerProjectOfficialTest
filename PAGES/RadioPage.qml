@@ -9,6 +9,10 @@ Page {
     height: parent.height
     x: parent.x
     y: parent.y
+    background:BorderImage {
+        source: "qrc:/IMG/backgroundWave.jpg"
+        opacity: 0.3
+    }
 
     Rectangle{
         width: 119
