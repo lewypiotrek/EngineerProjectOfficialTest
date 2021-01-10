@@ -5,7 +5,7 @@ import "COMPONENTS/Separators" as Separators
 
 ApplicationWindow {
     id: window
-    //visibility: "FullScreen"
+    visibility: "FullScreen"
     width: 1024
     height: 600
     visible: true

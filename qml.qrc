@@ -25,5 +25,10 @@
         <file>IMG/backgroundWave.jpg</file>
         <file>COMPONENTS/MiniMediaPlayer/MiniMediaPlayer.qml</file>
         <file>COMPONENTS/MiniMediaPlayer/play.png</file>
+        <file>COMPONENTS/MediaPlayer/MediaPlayer.qml</file>
+        <file>COMPONENTS/MediaPlayer/next.png</file>
+        <file>COMPONENTS/MediaPlayer/play.png</file>
+        <file>COMPONENTS/MediaPlayer/MediaButton.qml</file>
+        <file>COMPONENTS/MediaPlayer/pause.png</file>
     </qresource>
 </RCC>
