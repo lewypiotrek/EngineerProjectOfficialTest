@@ -7,13 +7,16 @@ Item{
     anchors.fill: parent
     width: 1024
     height: 535
+
     Text {
-        id: test
+        id: songTitle
         x: 487
-        y: 260
+        y: 286
+        width: 51
+        height: 59
         text: qsTr("...")
         font{
-            pixelSize: 55
+            pixelSize: 25
         }
     }
 
@@ -37,8 +40,9 @@ Item{
 
             MediaButton{
                 onButtonClicked: {
-                    musicPlayer.switchPreviouseSong()
+                    musicPlayer.previouseSong()
                 }
+
                 Image {
                     id: previousIcon
                     source: "next.png"
@@ -51,8 +55,7 @@ Item{
 
             MediaButton{
                 onButtonClicked: {
-                    musicPlayer.playMusic()
-                    test.text(qsTr("KLIK KLIK"))
+                   musicPlayer.playMusic()
                 }
 
                 Image {
@@ -64,6 +67,10 @@ Item{
             }
 
             MediaButton{
+                onButtonClicked: {
+                    musicPlayer.stopMusic()
+                }
+
                 Image {
                     id: pauseIcon
                     source: "pause.png"
@@ -74,7 +81,7 @@ Item{
 
             MediaButton{
                 onButtonClicked: {
-                    musicPlayer.switchNextSong()
+                    musicPlayer.nextSong()
                 }
 
                 Image {
@@ -93,8 +100,9 @@ Item{
         y: 332
         width: 600
         height: 62
+        stepSize: 1000
         font.pointSize: 17
-        value: 0.5
+        value: musicPlayer.getDuration()
     }
 
     Rectangle {
@@ -104,36 +112,96 @@ Item{
         width: 260
         height: 260
         border.color: "white"
+        radius: 10
         border.width: 1
         color: "transparent"
+        Image {
+            source:"qrc:/IMG/Music.png"
+            anchors.fill: parent
+            anchors.margins: 2
+            opacity: 0.7
+
+        }
     }
 
     Dial {
-        id: dial
+        id: volumeDial
         x: 845
+        y: 378
+        width: 164
+        height: 149
+        wheelEnabled: false
+        stepSize: 1
+        from: 0
+        to: 100
+        value: musicPlayer.getVolume()
+        onValueChanged: {
+            musicPlayer.setVolume(value)
+        }
+
+        Text {
+            id: volumeValue
+            x: 52
+            y: 53
+            width: 56
+            height: 38
+            text: volumeDial.value.toFixed(0)
+            font.pixelSize: 36
+            color: "white"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+    }
+
+    Playlist {
+        x:347
+        y:20
+        width: 615
+        height: 260
+    }
+
+    Switch {
+        id: muteSwitch
+        x: 18
         y: 400
-        width: 140
-        height: 127
-    }
-
-    CheckBox {
-        id: checkBox
-        x: 8
-        y: 445
-        width: 175
-        height: 48
+        width: 167
+        height: 59
         text: qsTr("MUTE")
-        font.pointSize: 17
+        font.pointSize: 22
     }
 
-    CheckBox {
-        id: checkBox1
-        x: 8
-        y: 391
-        width: 175
-        height: 48
-        text: qsTr("REPEAT ONE")
-        font.pointSize: 17
+    Switch {
+        id: repeatSwitch
+        x: 18
+        y: 465
+        width: 167
+        height: 62
+        text: qsTr("REPEAT")
+        font.pointSize: 22
+    }
+
+    Text {
+        id: songTime
+        x: 143
+        y: 346
+        width: 64
+        height: 35
+        text: qsTr("0:00")
+        font.pixelSize: 25
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        minimumPixelSize: 18
+    }
+
+    Button {
+        id: button
+        x: 40
+        y: 339
+        text: qsTr("Button")
+        onClicked: {
+
+        }
     }
 }
 

@@ -30,5 +30,8 @@
         <file>COMPONENTS/MediaPlayer/play.png</file>
         <file>COMPONENTS/MediaPlayer/MediaButton.qml</file>
         <file>COMPONENTS/MediaPlayer/pause.png</file>
+        <file>IMG/exit.png</file>
+        <file>COMPONENTS/MediaPlayer/Playlist.qml</file>
+        <file>IMG/Music.png</file>
     </qresource>
 </RCC>

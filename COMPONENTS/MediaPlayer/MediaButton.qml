@@ -6,7 +6,6 @@ Rectangle {
     height: 125
     color: "transparent"
 
-
     // PRESS ANIMATIONS
     states: [
        State {

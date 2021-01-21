@@ -131,6 +131,24 @@ ApplicationWindow {
                }
            }
 
+           Separators.ManuSeparatorVertical{}
+
+           ItemDelegate {
+               text: qsTr("Exit")
+               Image {
+                   id: exitIcon
+                   source: "qrc:/IMG/exit.png"
+                   width: 60
+                   height: 60
+               }
+               leftPadding: parent.width * 0.2
+               width: parent.width
+               onClicked: {
+                   Qt.quit()
+               }
+           }
+
+
         }
     }
 

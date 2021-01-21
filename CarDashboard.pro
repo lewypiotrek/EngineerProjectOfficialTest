@@ -1,5 +1,6 @@
 QT += quick virtualkeyboard
 QT += multimedia
+QT += widgets
 
 CONFIG += c++11
 
@@ -8,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        ENGINE/MEDIAPLAYER/musicplayer.cpp \
+        COMPONENTS/MediaPlayer/musicplayer.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -27,4 +28,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    ENGINE/MEDIAPLAYER/musicplayer.h
+    COMPONENTS/MediaPlayer/musicplayer.h
