@@ -20,13 +20,15 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     // Connectiong slot and signals to handle all QML controls
     connect(player,SIGNAL(volumeChanged(int)),player,SLOT(setVolume(int)));
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDuration(qint64)));
+    connect(player, SIGNAL(mutedChanged(bool)),player,SLOT(setMuted(bool)));
 
-    // Additionals settings
+    // Additionals variables settings
     tracksDefaultPath = "/home/pi/Music";
+    isMuted = false;
+    isRepeatModeOn = false;
 
     // Load playlist
     loadTracksFromDefaultUrl();
-
 }
 
 static bool isPlaylist(const QUrl &url) // Check for ".m3u" playlists.
@@ -120,11 +122,37 @@ void MusicPlayer::setVolume(double f_volume)
 void MusicPlayer::setDuration(qint64 f_duration)
 {
     duration = f_duration;
+
 }
 
 qint64 MusicPlayer::getDuration()
 {
     return duration;
+}
+
+void MusicPlayer::muteSong()
+{
+    if(isMuted)
+    {
+        emit player->mutedChanged(false);
+    }
+    else
+    {
+        emit player->mutedChanged(true);
+    }
+     isMuted = !isMuted;
+}
+
+void MusicPlayer::repeatSong()
+{
+    if(isRepeatModeOn)
+    {
+        playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    }
+    else
+    {
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    }
 }
 
 

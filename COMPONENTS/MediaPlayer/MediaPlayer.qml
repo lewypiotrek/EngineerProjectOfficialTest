@@ -54,8 +54,20 @@ Item{
             }
 
             MediaButton{
+                id: playButton
+                property bool isPlaying: true
                 onButtonClicked: {
                    musicPlayer.playMusic()
+                   if(isPlaying == false)
+                   {
+                       playIcon.source="play.png"
+                       isPlaying = true
+                   }
+                   else
+                   {
+                       playIcon.source="pause.png"
+                       isPlaying = false
+                   }
                 }
 
                 Image {
@@ -66,14 +78,16 @@ Item{
                 }
             }
 
-            MediaButton{
+            MediaButton{                
                 onButtonClicked: {
                     musicPlayer.stopMusic()
+                    playIcon.source="play.png"
+                    playButton.isPlaying = true
                 }
 
                 Image {
                     id: pauseIcon
-                    source: "pause.png"
+                    source: "stop.png"
                     height: parent.height
                     width: parent.width
                 }
@@ -162,23 +176,51 @@ Item{
     }
 
     Switch {
+        property bool isMuted: false
         id: muteSwitch
         x: 18
         y: 400
         width: 167
         height: 59
-        text: qsTr("MUTE")
+        text: qsTr("MUTED")
         font.pointSize: 22
+
+        onClicked: {
+            musicPlayer.muteSong()
+            if(isMuted == false)
+            {
+                font.underline=true
+            }
+            else
+            {
+                font.underline=false
+            }
+            isMuted = !isMuted
+        }
     }
 
     Switch {
+        property bool isLooped: false
         id: repeatSwitch
         x: 18
         y: 465
         width: 167
         height: 62
-        text: qsTr("REPEAT")
+        text: qsTr("LOOP")
         font.pointSize: 22
+
+        onClicked: {
+            musicPlayer.repeatSong()
+            if(isLooped == false)
+            {
+                font.underline=true
+            }
+            else
+            {
+                font.underline=false
+            }
+            isLooped = !isLooped
+        }
     }
 
     Text {

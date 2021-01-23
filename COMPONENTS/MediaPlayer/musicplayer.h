@@ -28,6 +28,8 @@ public slots:
     void setVolume(double f_volume);
     void setDuration(qint64 f_duration);
     qint64 getDuration();
+    void muteSong();
+    void repeatSong();
 
 private:
     void setTrackInfo(const QString &info);
@@ -39,6 +41,8 @@ private:
     QString trackInfo;
     QString tracksDefaultPath;
     int volume;
+    bool isMuted;
+    bool isRepeatModeOn;
 
 
 
