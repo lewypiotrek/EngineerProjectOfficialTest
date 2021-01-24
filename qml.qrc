@@ -33,6 +33,5 @@
         <file>IMG/exit.png</file>
         <file>IMG/Music.png</file>
         <file>COMPONENTS/MediaPlayer/stop.png</file>
-        <file>COMPONENTS/MediaPlayer/Delegate.qml</file>
     </qresource>
 </RCC>
