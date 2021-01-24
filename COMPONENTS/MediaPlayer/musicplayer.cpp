@@ -14,21 +14,28 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     player->setPlaylist(playlist);
 
     // Connecting slots and signal to handle metadata changes like title,duration, etc.
-    connect(player, &QMediaPlayer::durationChanged, this, &MusicPlayer::durationChanged);
     connect(player, QOverload<>::of(&QMediaPlayer::metaDataChanged), this, &MusicPlayer::metaDataChanged);
 
     // Connectiong slot and signals to handle all QML controls
     connect(player,SIGNAL(volumeChanged(int)),player,SLOT(setVolume(int)));
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDuration(qint64)));
-    connect(player, SIGNAL(mutedChanged(bool)),player,SLOT(setMuted(bool)));
+    connect(player,SIGNAL(mutedChanged(bool)),player,SLOT(setMuted(bool)));
+
+    // Connecting signals to handle music duration and current position for slider
+    connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDurationFromMedia(qint64)));
+    connect(player,SIGNAL(positionChanged(qint64)),this,SLOT(setCurrentPositon(qint64)));
+
 
     // Additionals variables settings
     tracksDefaultPath = "/home/pi/Music";
     isMuted = false;
     isRepeatModeOn = false;
+    volume = 100;
+    duration = 1;
 
     // Load playlist
     loadTracksFromDefaultUrl();
+
 }
 
 static bool isPlaylist(const QUrl &url) // Check for ".m3u" playlists.
@@ -49,12 +56,6 @@ void MusicPlayer::addToPlaylist(QList<QUrl> urlPath)
     }
 }
 
-void MusicPlayer::durationChanged(qint64 f_duration)
-{
-    duration = f_duration / 1000;
-
-}
-
 void MusicPlayer::metaDataChanged()
 {
     if (player->isMetaDataAvailable())
@@ -69,15 +70,16 @@ void MusicPlayer::loadTracksFromDefaultUrl()
 {
     // load files to string list
     QDir directory(tracksDefaultPath);
-    QStringList musicFiles = directory.entryList(QStringList() << "*.mp3" << "*.MP3",QDir::Files|QDir::Readable);
+    musicFiles = directory.entryList(QStringList() << "*.mp3" << "*.MP3",QDir::Files|QDir::Readable);
 
     // load items from string list to playlist
-    foreach(QString fileName, musicFiles){
+    foreach(QString fileName, musicFiles){        
         playlist->addMedia(QMediaContent(QUrl::fromLocalFile(tracksDefaultPath + "/" + fileName)));
     }
 }
 
 /*  --- SLOTS FOR QML CONTROLS ---  */
+
 void MusicPlayer::playMusic()
 {
     if(player->state() == QMediaPlayer::PlayingState)
@@ -119,17 +121,6 @@ void MusicPlayer::setVolume(double f_volume)
     emit player->volumeChanged(volume);
 }
 
-void MusicPlayer::setDuration(qint64 f_duration)
-{
-    duration = f_duration;
-
-}
-
-qint64 MusicPlayer::getDuration()
-{
-    return duration;
-}
-
 void MusicPlayer::muteSong()
 {
     if(isMuted)
@@ -155,6 +146,32 @@ void MusicPlayer::repeatSong()
     }
 }
 
+
+// driver for duration slider
+/*----------------------------*/
+void MusicPlayer::setDurationFromMedia(qint64 f_duration)
+{
+    // slot to get duration from file metadata
+    duration = f_duration;
+}
+
+qint64 MusicPlayer::getDuration()
+{
+    // returning song duration in sec
+    return duration/1000;
+}
+
+void MusicPlayer::setCurrentPositon(qint64 f_currectSongPosition)
+{
+    currectSongPosition = f_currectSongPosition/1000;
+    emit this->currentPositionChanged();
+}
+
+qint64 MusicPlayer::getCurrentPositon()
+{
+    return currectSongPosition;
+}
+/*----------------------------*/
 
 void MusicPlayer::setTrackInfo(const QString &info)
 {

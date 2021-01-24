@@ -29,8 +29,7 @@ Item{
         width: 600
         height: 138
         x: 213
-        y: 400
-
+        y: 398
 
         RowLayout{
             width: 594
@@ -56,8 +55,11 @@ Item{
             MediaButton{
                 id: playButton
                 property bool isPlaying: true
+
                 onButtonClicked: {
                    musicPlayer.playMusic()
+                   durationSlider.to = musicPlayer.getDuration()
+                   songTime.text = musicPlayer.getDuration()
                    if(isPlaying == false)
                    {
                        playIcon.source="play.png"
@@ -109,14 +111,14 @@ Item{
     }
 
     Slider {
-        id: slider
+        id: durationSlider
         x: 213
         y: 332
         width: 600
         height: 62
         stepSize: 1000
         font.pointSize: 17
-        value: musicPlayer.getDuration()
+        value: musicPlayer.currectSongPosition
     }
 
     Rectangle {
@@ -168,11 +170,34 @@ Item{
 
     }
 
-    Playlist {
+    Rectangle {
+        border.color: "white"
+        radius: 10
+        color: "transparent"
         x:347
         y:20
         width: 615
         height: 260
+
+        Component {
+            id: del
+            Delegate {
+                name: model.name
+                age: model.age
+
+            }
+        }
+        ScrollView {
+            id: lv
+            x:10; y:10;
+            width: 150
+            height: 400
+
+            ListView {
+                model: modcpp
+                delegate: del
+            }
+        }
     }
 
     Switch {
@@ -225,15 +250,15 @@ Item{
 
     Text {
         id: songTime
-        x: 143
-        y: 346
+        x: 749
+        y: 327
         width: 64
         height: 35
         text: qsTr("0:00")
-        font.pixelSize: 25
+        font.pixelSize: 22
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        minimumPixelSize: 18
+        minimumPixelSize: 12
     }
 
     Button {

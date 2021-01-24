@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QQuickView>
 
 class MusicPlayer : public QObject
 {
@@ -12,10 +13,10 @@ public:
     explicit MusicPlayer(QObject *parent = nullptr);
 
 public:
+    Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged)
     void addToPlaylist(QList<QUrl> urlPath);
 
 public slots:
-    void durationChanged(qint64 duration);
     void metaDataChanged();
     void loadTracksFromDefaultUrl();
 
@@ -26,10 +27,20 @@ public slots:
     void stopMusic();
     int getVolume();
     void setVolume(double f_volume);
-    void setDuration(qint64 f_duration);
-    qint64 getDuration();
     void muteSong();
     void repeatSong();
+
+    // Handle overall duration
+    void setDurationFromMedia(qint64 f_duration);
+    qint64 getDuration();
+
+    // Slots to update slider which represent current song position
+    void setCurrentPositon(qint64 f_currectSongPosition);
+    qint64 getCurrentPositon();
+
+
+signals:
+    void currentPositionChanged();  // signal for Q_PROPERTY to update slider
 
 private:
     void setTrackInfo(const QString &info);
@@ -37,15 +48,14 @@ private:
 private:
     QMediaPlayer * player = nullptr;
     QMediaPlaylist * playlist = nullptr;
-    qint64 duration;
     QString trackInfo;
     QString tracksDefaultPath;
     int volume;
     bool isMuted;
     bool isRepeatModeOn;
-
-
-
+    qint64 duration;            // overall duration in seconds
+    qint64 currectSongPosition; // in seconds
+    QStringList musicFiles;
 
 };
 
