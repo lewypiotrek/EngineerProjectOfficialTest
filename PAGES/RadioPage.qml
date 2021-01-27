@@ -33,6 +33,15 @@ Page {
             font.pixelSize: 69
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+
+            Text {
+                id: text1
+                x: 42
+                y: 109
+                color: "#f7f6f6"
+                text: qsTr("MHz")
+                font.pixelSize: 32
+            }
         }
         to: 108
         from: 87.5

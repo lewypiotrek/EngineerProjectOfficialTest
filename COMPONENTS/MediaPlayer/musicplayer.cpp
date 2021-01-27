@@ -32,6 +32,7 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     isRepeatModeOn = false;
     volume = 100;
     duration = 1;
+    currectSongPosition = 1;
 
     // Load playlist
     loadTracksFromDefaultUrl();
@@ -76,6 +77,11 @@ void MusicPlayer::loadTracksFromDefaultUrl()
     foreach(QString fileName, musicFiles){        
         playlist->addMedia(QMediaContent(QUrl::fromLocalFile(tracksDefaultPath + "/" + fileName)));
     }
+
+    // This is nessery to upload information about duration, etc. There is no easy way to
+    // read metaData before file is opened. This two lanes resolved this issue
+    player->play();
+    player->stop();
 }
 
 /*  --- SLOTS FOR QML CONTROLS ---  */
@@ -157,8 +163,8 @@ void MusicPlayer::setDurationFromMedia(qint64 f_duration)
 
 qint64 MusicPlayer::getDuration()
 {
-    // returning song duration in sec
-    return duration/1000;
+    // returning song duration in ms
+    return duration;
 }
 
 void MusicPlayer::setCurrentPositon(qint64 f_currectSongPosition)

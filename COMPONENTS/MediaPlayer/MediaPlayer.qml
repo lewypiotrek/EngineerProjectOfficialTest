@@ -8,6 +8,27 @@ Item{
     width: 1024
     height: 535
 
+    function parseSecToTime(duration)
+    {
+        var seconds = Math.floor((duration / 1000) % 60),
+            minutes = Math.floor((duration / (60 * 1000)) % 60);
+
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+        return minutes + ":" + seconds;
+    }
+
+
+    Timer{
+        id: delayGetMetadata
+        repeat: false
+        interval: 200
+        onTriggered: {
+            durationSlider.to = musicPlayer.getDuration()/1000
+            songTime.text = parseSecToTime(musicPlayer.getDuration())
+        }
+    }
+
     Text {
         id: songTitle
         x: 487
@@ -38,10 +59,10 @@ Item{
             y:5
 
             MediaButton{
-                onButtonClicked: {
+                onButtonClicked: {                    
                     musicPlayer.previouseSong()
+                    delayGetMetadata.start()
                 }
-
                 Image {
                     id: previousIcon
                     source: "next.png"
@@ -49,18 +70,16 @@ Item{
                     width: parent.width
                     rotation: 180
                 }
-
             }
 
             MediaButton{
                 id: playButton
                 property bool isPlaying: true
-
                 onButtonClicked: {
                    musicPlayer.playMusic()
-                   durationSlider.to = musicPlayer.getDuration()
-                   songTime.text = musicPlayer.getDuration()
-                   if(isPlaying == false)
+                   delayGetMetadata.start()
+
+                    if(isPlaying == false)
                    {
                        playIcon.source="play.png"
                        isPlaying = true
@@ -86,7 +105,6 @@ Item{
                     playIcon.source="play.png"
                     playButton.isPlaying = true
                 }
-
                 Image {
                     id: pauseIcon
                     source: "stop.png"
@@ -98,6 +116,7 @@ Item{
             MediaButton{
                 onButtonClicked: {
                     musicPlayer.nextSong()
+                    delayGetMetadata.start()
                 }
 
                 Image {
@@ -113,12 +132,15 @@ Item{
     Slider {
         id: durationSlider
         x: 213
-        y: 332
+        y: 335
         width: 600
         height: 62
         stepSize: 1000
         font.pointSize: 17
         value: musicPlayer.currectSongPosition
+        onValueChanged: {
+            songCurrentTime.text = parseSecToTime(musicPlayer.currectSongPosition * 1000)
+        }
     }
 
     Rectangle {
@@ -134,9 +156,8 @@ Item{
         Image {
             source:"qrc:/IMG/Music.png"
             anchors.fill: parent
-            anchors.margins: 2
+            anchors.margins: 3
             opacity: 0.7
-
         }
     }
 
@@ -167,7 +188,6 @@ Item{
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
-
     }
 
     Rectangle {
@@ -178,26 +198,6 @@ Item{
         y:20
         width: 615
         height: 260
-
-        Component {
-            id: del
-            Delegate {
-                name: model.name
-                age: model.age
-
-            }
-        }
-        ScrollView {
-            id: lv
-            x:10; y:10;
-            width: 150
-            height: 400
-
-            ListView {
-                model: modcpp
-                delegate: del
-            }
-        }
     }
 
     Switch {
@@ -251,25 +251,30 @@ Item{
     Text {
         id: songTime
         x: 749
-        y: 327
+        y: 324
         width: 64
         height: 35
-        text: qsTr("0:00")
+        color: "#f7f6f6"
+        text: qsTr("00:00")
         font.pixelSize: 22
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         minimumPixelSize: 12
     }
 
-    Button {
-        id: button
-        x: 40
-        y: 339
-        text: qsTr("Button")
-        onClicked: {
-
-        }
+    Text {
+        id: songCurrentTime
+        x: 214
+        y: 324
+        width: 64
+        height: 35
+        color: "#f7f6f6"
+        text: "00:00"
+        font.pixelSize: 22
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        minimumPixelSize: 12
     }
-}
 
+}
 
