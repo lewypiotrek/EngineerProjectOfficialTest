@@ -38,6 +38,8 @@ public slots:
     void setCurrentPositon(qint64 f_currectSongPosition);
     qint64 getCurrentPositon();
 
+    // Song title
+    QString getSongTitle();
 
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
@@ -56,6 +58,8 @@ private:
     qint64 duration;            // overall duration in seconds
     qint64 currectSongPosition; // in seconds
     QStringList musicFiles;
+    QString songTitle;
+    QStringList dataAvaiable;
 
 };
 

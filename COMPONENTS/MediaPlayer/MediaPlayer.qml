@@ -26,18 +26,24 @@ Item{
         onTriggered: {
             durationSlider.to = musicPlayer.getDuration()/1000
             songTime.text = parseSecToTime(musicPlayer.getDuration())
+            songTitle.text = musicPlayer.getSongTitle()
         }
     }
 
     Text {
         id: songTitle
-        x: 487
+        x: 213
         y: 286
         width: 51
         height: 59
+        color: "#f7f6f6"
         text: qsTr("...")
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.NoWrap
+        maximumLineCount: 500
         font{
-            pixelSize: 25
+            pixelSize: 21
         }
     }
 

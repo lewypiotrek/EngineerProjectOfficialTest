@@ -29,3 +29,5 @@ DISTFILES +=
 
 HEADERS += \
     COMPONENTS/MediaPlayer/musicplayer.h
+
+LIBS +=-L/home/plewandowski/rpi/sysroot/usr/lib -lwiringPi

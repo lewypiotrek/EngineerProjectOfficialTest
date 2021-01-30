@@ -33,6 +33,7 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     volume = 100;
     duration = 1;
     currectSongPosition = 1;
+    songTitle = "...";
 
     // Load playlist
     loadTracksFromDefaultUrl();
@@ -176,6 +177,21 @@ void MusicPlayer::setCurrentPositon(qint64 f_currectSongPosition)
 qint64 MusicPlayer::getCurrentPositon()
 {
     return currectSongPosition;
+}
+
+QString MusicPlayer::getSongTitle()
+{
+//    dataAvaiable = player->availableMetaData();
+//    QVariant metadataValue,test;
+//    metadataValue = player->metaData(dataAvaiable[4]);
+
+//    for(auto i = 0; i<dataAvaiable.size();i++)
+//    {
+//        test = dataAvaiable[i];
+//        qDebug() << test.toString() << "\n";
+//    }
+
+    return musicFiles[playlist->currentIndex()];
 }
 /*----------------------------*/
 
