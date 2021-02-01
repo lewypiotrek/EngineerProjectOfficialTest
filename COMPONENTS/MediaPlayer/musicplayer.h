@@ -11,6 +11,7 @@ class MusicPlayer : public QObject
     Q_OBJECT
 public:
     explicit MusicPlayer(QObject *parent = nullptr);
+    ~MusicPlayer();
 
 public:
     Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged);
@@ -21,7 +22,7 @@ public:
 public slots:
     void loadTracksFromDefaultUrl();
 
-    // QML Controls
+    // QML Controls - handle mediaplayer buttons
     void playMusic();
     void nextSong();
     void previouseSong();
@@ -46,9 +47,6 @@ public slots:
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
     void songTitleChanged();
-
-private:
-    void setTrackInfo(const QString &info);
 
 private:
     QMediaPlayer * player = nullptr;

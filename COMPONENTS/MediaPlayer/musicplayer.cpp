@@ -35,6 +35,12 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     loadTracksFromDefaultUrl();
 }
 
+MusicPlayer::~MusicPlayer()
+{
+    delete playlist;
+    delete player;
+}
+
 static bool isPlaylist(const QUrl &url) // Check for ".m3u" playlists.
 {
     if (!url.isLocalFile())
@@ -139,9 +145,6 @@ void MusicPlayer::repeatSong()
     }
 }
 
-
-// driver for duration slider
-/*----------------------------*/
 void MusicPlayer::setDurationFromMedia(qint64 f_duration)
 {
     // slot to get duration from file metadata
