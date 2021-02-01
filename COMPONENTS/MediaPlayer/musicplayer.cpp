@@ -13,9 +13,6 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     playlist = new QMediaPlaylist();
     player->setPlaylist(playlist);
 
-    // Connecting slots and signal to handle metadata changes like title,duration, etc.
-    connect(player, QOverload<>::of(&QMediaPlayer::metaDataChanged), this, &MusicPlayer::metaDataChanged);
-
     // Connectiong slot and signals to handle all QML controls
     connect(player,SIGNAL(volumeChanged(int)),player,SLOT(setVolume(int)));
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDuration(qint64)));
@@ -24,7 +21,6 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     // Connecting signals to handle music duration and current position for slider
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDurationFromMedia(qint64)));
     connect(player,SIGNAL(positionChanged(qint64)),this,SLOT(setCurrentPositon(qint64)));
-
 
     // Additionals variables settings
     tracksDefaultPath = "/home/pi/Music";
@@ -37,7 +33,6 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
 
     // Load playlist
     loadTracksFromDefaultUrl();
-
 }
 
 static bool isPlaylist(const QUrl &url) // Check for ".m3u" playlists.
@@ -58,15 +53,6 @@ void MusicPlayer::addToPlaylist(QList<QUrl> urlPath)
     }
 }
 
-void MusicPlayer::metaDataChanged()
-{
-    if (player->isMetaDataAvailable())
-    {
-        setTrackInfo(QString("%1 - %2")
-                .arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
-                .arg(player->metaData(QMediaMetaData::Title).toString()));
-    }
-}
 
 void MusicPlayer::loadTracksFromDefaultUrl()
 {
@@ -181,21 +167,12 @@ qint64 MusicPlayer::getCurrentPositon()
 
 QString MusicPlayer::getSongTitle()
 {
-//    dataAvaiable = player->availableMetaData();
-//    QVariant metadataValue,test;
-//    metadataValue = player->metaData(dataAvaiable[4]);
-
-//    for(auto i = 0; i<dataAvaiable.size();i++)
-//    {
-//        test = dataAvaiable[i];
-//        qDebug() << test.toString() << "\n";
-//    }
-
-    return musicFiles[playlist->currentIndex()];
+    songTitle = musicFiles[playlist->currentIndex()];
+    return songTitle;
 }
-/*----------------------------*/
 
-void MusicPlayer::setTrackInfo(const QString &info)
+void MusicPlayer::setSongTitle(QString f_title)
 {
-    trackInfo = info;
+    songTitle = f_title;
+    emit this->currentPositionChanged();
 }

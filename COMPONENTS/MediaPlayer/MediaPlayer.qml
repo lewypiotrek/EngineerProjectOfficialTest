@@ -37,7 +37,7 @@ Item{
         width: 51
         height: 59
         color: "#f7f6f6"
-        text: qsTr("...")
+        text: musicPlayer.songTitle
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         wrapMode: Text.NoWrap

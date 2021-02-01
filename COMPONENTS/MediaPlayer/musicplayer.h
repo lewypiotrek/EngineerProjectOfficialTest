@@ -13,11 +13,12 @@ public:
     explicit MusicPlayer(QObject *parent = nullptr);
 
 public:
-    Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged)
+    Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged);
+    Q_PROPERTY(QString songTitle READ getSongTitle WRITE setSongTitle NOTIFY songTitleChanged);
+
     void addToPlaylist(QList<QUrl> urlPath);
 
 public slots:
-    void metaDataChanged();
     void loadTracksFromDefaultUrl();
 
     // QML Controls
@@ -40,9 +41,11 @@ public slots:
 
     // Song title
     QString getSongTitle();
+    void setSongTitle(QString f_title);
 
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
+    void songTitleChanged();
 
 private:
     void setTrackInfo(const QString &info);
@@ -50,14 +53,13 @@ private:
 private:
     QMediaPlayer * player = nullptr;
     QMediaPlaylist * playlist = nullptr;
-    QString trackInfo;
     QString tracksDefaultPath;
     int volume;
     bool isMuted;
     bool isRepeatModeOn;
     qint64 duration;            // overall duration in seconds
     qint64 currectSongPosition; // in seconds
-    QStringList musicFiles;
+    QStringList musicFiles;     // List of QString file titles
     QString songTitle;
     QStringList dataAvaiable;
 
