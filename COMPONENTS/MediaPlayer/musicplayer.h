@@ -16,8 +16,10 @@ public:
 public:
     Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged);
     Q_PROPERTY(QString songTitle READ getSongTitle WRITE setSongTitle NOTIFY songTitleChanged);
+    Q_PROPERTY(QStringList model MEMBER musicFiles NOTIFY playlistModelChanged)
 
     void addToPlaylist(QList<QUrl> urlPath);
+    QQuickView *playlistView;
 
 public slots:
     void loadTracksFromDefaultUrl();
@@ -47,6 +49,7 @@ public slots:
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
     void songTitleChanged();
+    void playlistModelChanged();
 
 private:
     QMediaPlayer * player = nullptr;
@@ -59,7 +62,6 @@ private:
     qint64 currectSongPosition; // in seconds
     QStringList musicFiles;     // List of QString file titles
     QString songTitle;
-    QStringList dataAvaiable;
 
 };
 

@@ -33,6 +33,13 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
 
     // Load playlist
     loadTracksFromDefaultUrl();
+
+    // Set view of playlist
+//    playlistView = new QQuickView;
+//    playlistView->setInitialProperties({{"model",QVariant::fromValue(musicFiles)}});
+//    playlistView->setSource(QUrl("qrc:/COMPONENTS/MediaPlayer/MediaPlayer.qml"));
+//    playlistView->show();
+
 }
 
 MusicPlayer::~MusicPlayer()
@@ -75,6 +82,9 @@ void MusicPlayer::loadTracksFromDefaultUrl()
     // read metaData before file is opened. This two lanes resolved this issue
     player->play();
     player->stop();
+
+    // Inform QML that the playlist has been changed
+    emit playlistModelChanged();
 }
 
 /*  --- SLOTS FOR QML CONTROLS ---  */
@@ -98,7 +108,10 @@ void MusicPlayer::nextSong()
 
 void MusicPlayer::previouseSong()
 {
-    playlist->previous();
+    if(playlist->currentIndex() - 1 >= 0)
+    {
+        playlist->previous();
+    }
 }
 
 void MusicPlayer::stopMusic()

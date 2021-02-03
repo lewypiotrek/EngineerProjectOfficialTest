@@ -32,8 +32,8 @@ Item{
 
     Text {
         id: songTitle
-        x: 213
-        y: 286
+        x: 214
+        y: 291
         width: 51
         height: 59
         color: "#f7f6f6"
@@ -196,25 +196,60 @@ Item{
         }
     }
 
+    //   PLAYLIST WIDGET
     Rectangle {
         border.color: "white"
         radius: 10
         color: "transparent"
-        x:347
+        x:304
         y:20
-        width: 615
+        width: 698
         height: 260
+
+        ListView{
+            width: parent.width - 5
+            height: parent.height - 80
+            model: musicPlayer.model
+            anchors.centerIn: parent
+            anchors.leftMargin: 5
+
+            delegate: Rectangle{                
+                height: 45
+                width:parent.width
+                color: "transparent"
+                border.color: "#3f3f3f"
+                border.width: 1
+                radius: 10
+                anchors.topMargin: 1
+                anchors.leftMargin: 5
+
+                MouseArea{
+                    width: parent.width
+                    height: parent.height
+
+                }
+
+                Text {
+                    text: modelData
+                    font.pixelSize: 20
+                    color: "white"
+                    anchors.fill: parent
+                    wrapMode: Text.WordWrap
+                }
+            }
+        }
+
     }
 
     Switch {
         property bool isMuted: false
         id: muteSwitch
-        x: 18
+        x: 6
         y: 400
-        width: 167
+        width: 201
         height: 59
         text: qsTr("MUTED")
-        font.pointSize: 22
+        font.pointSize: 18
 
         onClicked: {
             musicPlayer.muteSong()
@@ -233,12 +268,12 @@ Item{
     Switch {
         property bool isLooped: false
         id: repeatSwitch
-        x: 18
+        x: 8
         y: 465
-        width: 167
+        width: 199
         height: 62
         text: qsTr("LOOP")
-        font.pointSize: 22
+        font.pointSize: 18
 
         onClicked: {
             musicPlayer.repeatSong()
@@ -256,13 +291,13 @@ Item{
 
     Text {
         id: songTime
-        x: 749
-        y: 324
+        x: 809
+        y: 348
         width: 64
         height: 35
         color: "#f7f6f6"
         text: qsTr("00:00")
-        font.pixelSize: 22
+        font.pixelSize: 20
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         minimumPixelSize: 12
@@ -270,16 +305,16 @@ Item{
 
     Text {
         id: songCurrentTime
-        x: 214
-        y: 324
+        x: 151
+        y: 348
         width: 64
         height: 35
         color: "#f7f6f6"
         text: "00:00"
-        font.pixelSize: 22
+        font.pixelSize: 20
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        minimumPixelSize: 12
+        minimumPixelSize: 10
     }
 
 }
