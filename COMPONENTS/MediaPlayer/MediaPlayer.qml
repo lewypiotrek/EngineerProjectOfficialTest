@@ -317,5 +317,16 @@ Item{
         minimumPixelSize: 10
     }
 
+    Button {
+        id: button
+        x: 44
+        y: 335
+        text: qsTr("Button")
+        onClicked: {
+            musicPlayer.playIndex(1);
+            songTitle.text = musicPlayer.getSongTitle()
+        }
+    }
+
 }
 

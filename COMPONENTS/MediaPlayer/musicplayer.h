@@ -46,6 +46,9 @@ public slots:
     QString getSongTitle();
     void setSongTitle(QString f_title);
 
+    // Playlist handlers
+    void playIndex(int f_index);
+
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
     void songTitleChanged();

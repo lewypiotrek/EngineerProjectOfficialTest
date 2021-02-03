@@ -33,13 +33,6 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
 
     // Load playlist
     loadTracksFromDefaultUrl();
-
-    // Set view of playlist
-//    playlistView = new QQuickView;
-//    playlistView->setInitialProperties({{"model",QVariant::fromValue(musicFiles)}});
-//    playlistView->setSource(QUrl("qrc:/COMPONENTS/MediaPlayer/MediaPlayer.qml"));
-//    playlistView->show();
-
 }
 
 MusicPlayer::~MusicPlayer()
@@ -191,4 +184,21 @@ void MusicPlayer::setSongTitle(QString f_title)
 {
     songTitle = f_title;
     emit this->currentPositionChanged();
+}
+
+void MusicPlayer::playIndex(int f_index)
+{
+    if(f_index >= 0)
+    {
+        // Set the right music file
+        stopMusic();
+        playlist->setCurrentIndex(f_index);
+        playMusic();
+
+        // Update duration and song title
+        duration = 0;
+        setCurrentPositon(0);
+        setSongTitle(musicFiles[playlist->currentIndex()]);
+
+    }
 }
