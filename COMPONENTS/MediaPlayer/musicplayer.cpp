@@ -194,13 +194,15 @@ void MusicPlayer::playIndex(int f_index)
             // Set the right music file
             stopMusic();
             playlist->setCurrentIndex(f_index);
-            playMusic();
 
             // Update duration and song title
             duration = 0;
             setCurrentPositon(0);
-            setSongTitle(musicFiles[playlist->currentIndex()]);
 
+            // Start playing music
+            playMusic();
+
+            setSongTitle(musicFiles[playlist->currentIndex()]);
         }
     }
     catch(...)

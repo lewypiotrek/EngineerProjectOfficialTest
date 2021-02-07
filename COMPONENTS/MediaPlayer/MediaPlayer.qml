@@ -23,10 +23,10 @@ Item{
     Timer{
         id: delayGetMetadata
         repeat: false
-        interval: 200
+        interval: 100
         onTriggered: {
             durationSlider.to = musicPlayer.getDuration()/1000
-            songTime.text = parseSecToTime(musicPlayer.getDuration())
+            songTotalTimestamp.text = parseSecToTime(musicPlayer.getDuration())
             songTitle.text = musicPlayer.getSongTitle()
         }
     }
@@ -152,7 +152,7 @@ Item{
         font.pointSize: 17
         value: musicPlayer.currectSongPosition
         onValueChanged: {
-            songCurrentTime.text = parseSecToTime(musicPlayer.currectSongPosition * 1000)
+            songCurrentTimestamp.text = parseSecToTime(musicPlayer.currectSongPosition * 1000)
         }
     }
 
@@ -273,7 +273,6 @@ Item{
                         parent.buttonClicked()
                         songsPlaylist.currentIndex = index
                         musicPlayer.playIndex(songsPlaylist.currentIndex)
-                        delayGetMetadata.start()
                     }
                 }
 
@@ -345,7 +344,7 @@ Item{
 
     // Song Duration - current time and total duration
     Text {
-        id: songTime
+        id: songTotalTimestamp
         x: 809
         y: 348
         width: 64
@@ -359,7 +358,7 @@ Item{
     }
 
     Text {
-        id: songCurrentTime
+        id: songCurrentTimestamp
         x: 151
         y: 348
         width: 64
@@ -372,7 +371,6 @@ Item{
         minimumPixelSize: 10
     }
 
-    // Test button
 
 }
 
