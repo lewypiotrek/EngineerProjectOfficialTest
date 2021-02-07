@@ -188,17 +188,23 @@ void MusicPlayer::setSongTitle(QString f_title)
 
 void MusicPlayer::playIndex(int f_index)
 {
-    if(f_index >= 0)
+    try{
+        if(f_index >= 0)
+        {
+            // Set the right music file
+            stopMusic();
+            playlist->setCurrentIndex(f_index);
+            playMusic();
+
+            // Update duration and song title
+            duration = 0;
+            setCurrentPositon(0);
+            setSongTitle(musicFiles[playlist->currentIndex()]);
+
+        }
+    }
+    catch(...)
     {
-        // Set the right music file
-        stopMusic();
-        playlist->setCurrentIndex(f_index);
-        playMusic();
-
-        // Update duration and song title
-        duration = 0;
-        setCurrentPositon(0);
-        setSongTitle(musicFiles[playlist->currentIndex()]);
-
+        qDebug() << "Error: Cannot play index: " + QString::number(f_index) + " musicplayer.cpp 189 line\n";
     }
 }

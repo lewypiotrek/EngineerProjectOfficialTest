@@ -33,7 +33,7 @@ ApplicationWindow {
             text:stackView.currentItem.title
             anchors.left:toolbarSeparator.right
             anchors.top: toolbarSeparator.top
-            topPadding: 5
+            topPadding: 10
             font.pointSize: 20
             font.weight: Font.Light
             font.family: "Helvetica"
@@ -42,10 +42,10 @@ ApplicationWindow {
         ToolSeparator{
             id:toolbarSeparator
             x:44
-            y:4
+            y:2
             contentItem: Rectangle {
                 implicitWidth: 2
-                implicitHeight: 40
+                implicitHeight: 45
                 color: "#c3c3c3"
             }
         }

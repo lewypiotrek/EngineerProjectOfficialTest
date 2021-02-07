@@ -19,6 +19,7 @@ Item{
     }
 
 
+    // Timer to handle duration and title with a short delay(To make sure that is already loaded)
     Timer{
         id: delayGetMetadata
         repeat: false
@@ -30,6 +31,7 @@ Item{
         }
     }
 
+    // Field for song title
     Text {
         id: songTitle
         x: 214
@@ -47,6 +49,8 @@ Item{
         }
     }
 
+
+////////////  BUTTONS PANEL  ////////////
     Rectangle{
         id: buttonsPanel
         color: "transparent"
@@ -135,6 +139,9 @@ Item{
         }
     }
 
+//////////////////////////////////////////////
+
+    // Duration slider
     Slider {
         id: durationSlider
         x: 213
@@ -149,6 +156,7 @@ Item{
         }
     }
 
+    // Place for song cover
     Rectangle {
         id: songCover
         x: 18
@@ -167,6 +175,7 @@ Item{
         }
     }
 
+    // Volume setting  - volume dial
     Dial {
         id: volumeDial
         x: 845
@@ -196,8 +205,11 @@ Item{
         }
     }
 
-    //   PLAYLIST WIDGET
+////////////  PLAYLIST WIDGET  ////////////
+
+    // Preaparing area for playlist
     Rectangle {
+        id: playlistArea
         border.color: "white"
         radius: 10
         color: "transparent"
@@ -206,14 +218,18 @@ Item{
         width: 698
         height: 260
 
+        // Declare listView
         ListView{
+            id: songsPlaylist
             width: parent.width - 5
             height: parent.height - 80
             model: musicPlayer.model
             anchors.centerIn: parent
-            anchors.leftMargin: 5
+            anchors.leftMargin: 5            
 
-            delegate: Rectangle{                
+            // Declare single item on list
+            delegate: Rectangle{
+                id: singleSongPosition
                 height: 45
                 width:parent.width
                 color: "transparent"
@@ -221,26 +237,63 @@ Item{
                 border.width: 1
                 radius: 10
                 anchors.topMargin: 1
-                anchors.leftMargin: 5
+                anchors.leftMargin: 5                
+
+                // press animation
+                states: [
+                   State {
+                     name: "pressed"
+                     when: mouseareaDelegate.pressed
+
+                     PropertyChanges {
+                       target: singleSongPosition
+                       border.color: "#660000"
+                       scale:0.98
+                       border.width: 2
+                     }
+                   },
+                   State{
+                        name: "normal"
+                        when: mouseareaDelegate.released()
+
+                        PropertyChanges {
+                          target: singleSongPosition
+                          border.color: "#3f3f3f"
+                          scale: 1.0
+                          border.width: 1
+                        }
+                    }
+                ]   // animation end
 
                 MouseArea{
+                    id: mouseareaDelegate
                     width: parent.width
                     height: parent.height
-
+                    onClicked: {
+                        parent.buttonClicked()
+                        songsPlaylist.currentIndex = index
+                        musicPlayer.playIndex(songsPlaylist.currentIndex)
+                        delayGetMetadata.start()
+                    }
                 }
 
                 Text {
+                    id: listItemTitle
                     text: modelData
                     font.pixelSize: 20
                     color: "white"
                     anchors.fill: parent
                     wrapMode: Text.WordWrap
                 }
+
+                signal buttonClicked()
             }
+
         }
-
     }
+//////////////////////////////////////////////
 
+    // Mute Switch
     Switch {
         property bool isMuted: false
         id: muteSwitch
@@ -265,6 +318,7 @@ Item{
         }
     }
 
+    // Repeat Switch
     Switch {
         property bool isLooped: false
         id: repeatSwitch
@@ -289,6 +343,7 @@ Item{
         }
     }
 
+    // Song Duration - current time and total duration
     Text {
         id: songTime
         x: 809
@@ -317,16 +372,7 @@ Item{
         minimumPixelSize: 10
     }
 
-    Button {
-        id: button
-        x: 44
-        y: 335
-        text: qsTr("Button")
-        onClicked: {
-            musicPlayer.playIndex(1);
-            songTitle.text = musicPlayer.getSongTitle()
-        }
-    }
+    // Test button
 
 }
 

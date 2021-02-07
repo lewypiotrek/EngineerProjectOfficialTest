@@ -49,6 +49,7 @@ public slots:
     // Playlist handlers
     void playIndex(int f_index);
 
+
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
     void songTitleChanged();
