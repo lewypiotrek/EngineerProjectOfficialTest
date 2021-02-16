@@ -68,6 +68,7 @@ Item{
             x:13
             y:5
 
+            // PREVIOUS
             MediaButton{
                 onButtonClicked: {                    
                     musicPlayer.previouseSong()
@@ -82,6 +83,7 @@ Item{
                 }
             }
 
+            // PLAY
             MediaButton{
                 id: playButton
                 property bool isPlaying: true
@@ -109,6 +111,7 @@ Item{
                 }
             }
 
+            // STOP
             MediaButton{                
                 onButtonClicked: {
                     musicPlayer.stopMusic()
@@ -123,6 +126,7 @@ Item{
                 }
             }
 
+            // NEXT
             MediaButton{
                 onButtonClicked: {
                     musicPlayer.nextSong()

@@ -27,7 +27,7 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     isMuted = false;
     isRepeatModeOn = false;
     volume = 100;
-    duration = 1;
+    duration = 0;
     currectSongPosition = 1;
     songTitle = "...";
 
@@ -90,6 +90,8 @@ void MusicPlayer::playMusic()
     }
     else
     {
+        // restart current position
+        setCurrentPositon(0);
         player->play();
     }
 }

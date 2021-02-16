@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
         COMPONENTS/MediaPlayer/musicplayer.cpp \
+        COMPONENTS/RadioPlayer/tea5767driver.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -28,6 +29,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    COMPONENTS/MediaPlayer/musicplayer.h
+    COMPONENTS/MediaPlayer/musicplayer.h \
+    COMPONENTS/RadioPlayer/tea5767driver.h
 
 LIBS +=-L/home/plewandowski/rpi/sysroot/usr/lib -lwiringPi
