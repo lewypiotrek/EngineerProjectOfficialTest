@@ -1,7 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "ENGINE/MEDIAPLAYER/musicplayer.h"
+#include "COMPONENTS/MediaPlayer/musicplayer.h"
+#include "COMPONENTS/RadioPlayer/radioplayer.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,8 +14,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    RadioPlayer radio;
     MusicPlayer player;
     engine.rootContext()->setContextProperty("musicPlayer",&player);
+    engine.rootContext()->setContextProperty("radioPlayer",&radio);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

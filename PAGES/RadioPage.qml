@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import "../COMPONENTS/MediaPlayer/"
+import QtQuick.Layouts 1.3
 
 Page {
     title: {
@@ -21,9 +23,10 @@ Page {
         width: 405
         height: 357
         stepSize: 0.1
+        value: radioPlayer.currentFrequency
 
         Text {
-            id: currentFrequency
+            id: currentFrequencyText
             x: 133
             y: 112
             width: 144
@@ -45,6 +48,9 @@ Page {
         }
         to: 108
         from: 87.5
+        onValueChanged: {
+            radioPlayer.setRadioFrequency(value)
+        }
     }
 
     RoundButton {
@@ -53,8 +59,11 @@ Page {
         y: 24
         width: 193
         height: 100
-        text: "92.4MHz"
+        text: "87.9MHz"
         font.pointSize: 19
+        onClicked: {
+            radioPlayer.setRadioFrequency(87.9)
+        }
     }
 
     RoundButton {
@@ -65,6 +74,9 @@ Page {
         height: 100
         text: "96.4MHz"
         font.pointSize: 19
+        onClicked: {
+            radioPlayer.setRadioFrequency(87.9)
+        }
     }
 
     RoundButton {
@@ -117,36 +129,58 @@ Page {
         radius: 10
         border.color: "#f7f6f6"
 
-        Image {
-            id: play
-            x: 152
-            y: 0
-            width: 133
-            height: 142
-            source: "../COMPONENTS/MediaPlayer/play.png"
-            fillMode: Image.PreserveAspectFit
-        }
+        RowLayout{
+                width: parent.width - 170
+                height: parent.height
+                x:5
+                y:1
 
-        Image {
-            id: up
-            x: 8
-            y: 0
-            width: 133
-            height: 142
-            source: "../COMPONENTS/MediaPlayer/next.png"
-            rotation: 90
-            fillMode: Image.PreserveAspectFit
-        }
+            MediaButton{
+                property bool isPlaying: true
+                Image {
+                    id: play
+                    height: parent.height
+                    width: parent.width
+                    source: "../COMPONENTS/MediaPlayer/play.png"
+                    fillMode: Image.PreserveAspectFit
+                }
+                onButtonClicked: {
+                    radioPlayer.playRadio()
+                    if(isPlaying == false)
+                   {
+                       playIcon.source="play.png"
+                       isPlaying = true
+                   }
+                   else
+                   {
+                       playIcon.source="../COMPONENTS/MediaPlayer/pause.png"
+                       isPlaying = false
+                   }
+                }
+            }
 
-        Image {
-            id: down
-            x: 296
-            y: 1
-            width: 133
-            height: 142
-            source: "../COMPONENTS/MediaPlayer/next.png"
-            fillMode: Image.PreserveAspectFit
-            rotation: 270
+            MediaButton{
+                Image {
+                    id: up
+                    height: parent.height
+                    width: parent.width
+                    source: "../COMPONENTS/MediaPlayer/next.png"
+                    rotation: 90
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
+
+            MediaButton{
+                Image {
+                    id: down
+                    height: parent.height
+                    width: parent.width
+                    source: "../COMPONENTS/MediaPlayer/next.png"
+                    fillMode: Image.PreserveAspectFit
+                    rotation: 270
+                }
+            }
+
         }
 
         Switch {

@@ -51,6 +51,9 @@ public:
     void turnOnStandby();
     double getFrequency();
 
+    bool getPlayStatsu();
+    bool getInitializationStatus();
+
 
 };
 

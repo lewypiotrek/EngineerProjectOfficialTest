@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
         COMPONENTS/MediaPlayer/musicplayer.cpp \
+        COMPONENTS/RadioPlayer/radioplayer.cpp \
         COMPONENTS/RadioPlayer/tea5767driver.cpp \
         main.cpp
 
@@ -30,6 +31,7 @@ DISTFILES +=
 
 HEADERS += \
     COMPONENTS/MediaPlayer/musicplayer.h \
+    COMPONENTS/RadioPlayer/radioplayer.h \
     COMPONENTS/RadioPlayer/tea5767driver.h
 
 LIBS +=-L/home/plewandowski/rpi/sysroot/usr/lib -lwiringPi

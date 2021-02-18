@@ -15,11 +15,12 @@ void TEA5767Driver::initializeComunicationI2C()
     std::cout << "Initialization connection.... \n";
     if((fd = wiringPiI2CSetup(DEVICE_ADDRESS)) < 0) {
         fprintf(stderr, "error opening i2c channel\n");
+        isInitialized = false;
         exit(1);
     }
     else
     {
-        std::cout << "Connection I2C without errors \n";
+        isInitialized = true;
     }
 
 }
@@ -73,6 +74,7 @@ void TEA5767Driver::setFrequency(double frequency)
 void TEA5767Driver::turnOnStandby()
 {
     setFrequency(getFrequency(), HCC_DEFAULT, SNC_DEFAULT, FORCED_MONO, 0, 1);
+    isPlaying = false;
 
 }
 
@@ -88,6 +90,16 @@ double TEA5767Driver::getFrequency()
 
     return frequency;
 
+}
+
+bool TEA5767Driver::getPlayStatsu()
+{
+    return isPlaying;
+}
+
+bool TEA5767Driver::getInitializationStatus()
+{
+    return isInitialized;
 }
 
 
