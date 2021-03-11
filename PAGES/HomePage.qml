@@ -44,6 +44,6 @@ Page {
         AnalogClock{}
     }
 
-    MiniMediaPlayer{}
+    MiniMediaPlayer{ x: 709;y: 322}
 
 }
