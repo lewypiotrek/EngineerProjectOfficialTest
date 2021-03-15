@@ -49,6 +49,9 @@ public slots:
     // Playlist handlers
     void playIndex(int f_index);
 
+    // Update song information
+    void UpdateSongInformation();
+
 
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider
@@ -66,6 +69,7 @@ private:
     qint64 currectSongPosition; // in seconds
     QStringList musicFiles;     // List of QString file titles
     QString songTitle;
+    int playlistSize;
 
 };
 

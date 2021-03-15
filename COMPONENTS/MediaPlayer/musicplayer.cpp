@@ -20,7 +20,12 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
 
     // Connecting signals to handle music duration and current position for slider
     connect(player,SIGNAL(durationChanged(qint64)),this,SLOT(setDurationFromMedia(qint64)));
+
+    // Connecting signals to handle duration slider - showing acctually position
     connect(player,SIGNAL(positionChanged(qint64)),this,SLOT(setCurrentPositon(qint64)));
+
+    // Slot to update data when the song is automatically switched
+    connect(playlist, SIGNAL(currentIndexChanged(int)),this,SLOT(UpdateSongInformation()));
 
     // Additionals variables settings
     tracksDefaultPath = "/home/pi/Music";
@@ -30,6 +35,7 @@ MusicPlayer::MusicPlayer(QObject *parent) : QObject(parent)
     duration = 0;
     currectSongPosition = 1;
     songTitle = "...";
+    playlistSize = 0;
 
     // Load playlist
     loadTracksFromDefaultUrl();
@@ -66,6 +72,8 @@ void MusicPlayer::loadTracksFromDefaultUrl()
     QDir directory(tracksDefaultPath);
     musicFiles = directory.entryList(QStringList() << "*.mp3" << "*.MP3",QDir::Files|QDir::Readable);
 
+    playlistSize = musicFiles.size();
+
     // load items from string list to playlist
     foreach(QString fileName, musicFiles){        
         playlist->addMedia(QMediaContent(QUrl::fromLocalFile(tracksDefaultPath + "/" + fileName)));
@@ -93,12 +101,18 @@ void MusicPlayer::playMusic()
         // restart current position
         setCurrentPositon(0);
         player->play();
+        emit this->currentPositionChanged();
     }
 }
 
 void MusicPlayer::nextSong()
 {
-    playlist->next();
+    if(playlist->currentIndex() + 1 < playlistSize)
+    {
+        playlist->next();
+        currectSongPosition = 1;
+        UpdateSongInformation();
+    }
 }
 
 void MusicPlayer::previouseSong()
@@ -106,6 +120,8 @@ void MusicPlayer::previouseSong()
     if(playlist->currentIndex() - 1 >= 0)
     {
         playlist->previous();
+        currectSongPosition = 1;
+        UpdateSongInformation();
     }
 }
 
@@ -203,12 +219,19 @@ void MusicPlayer::playIndex(int f_index)
 
             // Start playing music
             playMusic();
-
             setSongTitle(musicFiles[playlist->currentIndex()]);
+            emit currentPositionChanged();
+            UpdateSongInformation();
         }
     }
     catch(...)
     {
         qDebug() << "Error: Cannot play index: " + QString::number(f_index) + " musicplayer.cpp 189 line\n";
     }
+}
+
+void MusicPlayer::UpdateSongInformation()
+{
+    emit songTitleChanged();
+    emit currentPositionChanged();
 }

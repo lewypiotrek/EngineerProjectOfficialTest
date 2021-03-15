@@ -23,7 +23,7 @@ Item{
     Timer{
         id: delayGetMetadata
         repeat: false
-        interval: 100
+        interval: 500
         onTriggered: {
             durationSlider.to = musicPlayer.getDuration()/1000
             songTotalTimestamp.text = parseSecToTime(musicPlayer.getDuration())
@@ -89,7 +89,7 @@ Item{
                 property bool isPlaying: true
                 onButtonClicked: {
                    musicPlayer.playMusic()
-                   delayGetMetadata.start()
+                  //delayGetMetadata.start()
 
                     if(isPlaying == false)
                    {
@@ -98,6 +98,7 @@ Item{
                    }
                    else
                    {
+                       delayGetMetadata.start()
                        playIcon.source="pause.png"
                        isPlaying = false
                    }
@@ -277,6 +278,7 @@ Item{
                         parent.buttonClicked()
                         songsPlaylist.currentIndex = index
                         musicPlayer.playIndex(songsPlaylist.currentIndex)
+                        delayGetMetadata.start()
                     }
                 }
 
