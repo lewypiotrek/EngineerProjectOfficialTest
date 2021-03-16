@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include "COMPONENTS/MediaPlayer/musicplayer.h"
 #include "COMPONENTS/RadioPlayer/radioplayer.h"
+#include "COMPONENTS/WebBrowser/webbrowser.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +17,10 @@ int main(int argc, char *argv[])
 
     RadioPlayer radio;
     MusicPlayer player;
+    WebBrowser browser;
     engine.rootContext()->setContextProperty("musicPlayer",&player);
     engine.rootContext()->setContextProperty("radioPlayer",&radio);
+    engine.rootContext()->setContextProperty("browser",&browser);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -33,5 +33,11 @@
         <file>IMG/exit.png</file>
         <file>IMG/Music.png</file>
         <file>COMPONENTS/MediaPlayer/stop.png</file>
+        <file>IMG/youtube.png</file>
+        <file>IMG/Netflix.png</file>
+        <file>IMG/google.png</file>
+        <file>IMG/googlemaps.png</file>
+        <file>IMG/facebook.png</file>
+        <file>IMG/instagram.png</file>
     </qresource>
 </RCC>
