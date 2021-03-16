@@ -17,8 +17,6 @@ public:
     Q_PROPERTY(qint64 currectSongPosition READ getCurrentPositon WRITE setCurrentPositon NOTIFY currentPositionChanged);
     Q_PROPERTY(QString songTitle READ getSongTitle WRITE setSongTitle NOTIFY songTitleChanged);
     Q_PROPERTY(QStringList model MEMBER musicFiles NOTIFY playlistModelChanged)
-
-    void addToPlaylist(QList<QUrl> urlPath);
     QQuickView *playlistView;
 
 public slots:
@@ -49,9 +47,8 @@ public slots:
     // Playlist handlers
     void playIndex(int f_index);
 
-    // Update song information
+    // Update song information like title, duration, current song position
     void UpdateSongInformation();
-
 
 signals:
     void currentPositionChanged();  // signal for Q_PROPERTY to update slider

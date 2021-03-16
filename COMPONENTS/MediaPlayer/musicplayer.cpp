@@ -47,25 +47,6 @@ MusicPlayer::~MusicPlayer()
     delete player;
 }
 
-static bool isPlaylist(const QUrl &url) // Check for ".m3u" playlists.
-{
-    if (!url.isLocalFile())
-        return false;
-    const QFileInfo fileInfo(url.toLocalFile());
-    return fileInfo.exists() && !fileInfo.suffix().compare(QLatin1String("m3u"), Qt::CaseInsensitive);
-}
-
-void MusicPlayer::addToPlaylist(QList<QUrl> urlPath)
-{
-    for (auto &url: urlPath) {
-        if (isPlaylist(url))
-            playlist->load(url);
-        else
-            playlist->addMedia(url);
-    }
-}
-
-
 void MusicPlayer::loadTracksFromDefaultUrl()
 {
     // load files to string list
